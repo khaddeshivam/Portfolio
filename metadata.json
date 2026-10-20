@@ -1,0 +1,6 @@
+{
+  "name": "Considered Craft - Vibe Coding Portfolio Studio",
+  "description": "Interactive editorial engineering portfolio and Gemini Studio vibe coding prompt blueprint generator inspired by high-craft developer portfolios.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
