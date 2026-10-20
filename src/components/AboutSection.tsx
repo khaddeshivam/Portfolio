@@ -1,6 +1,8 @@
-import React from 'react';
-import { Download, Github, Linkedin, Mail, MapPin, Sparkles } from 'lucide-react';
+import React, { useState } from 'react';
+import { Download, Github, Linkedin, Mail, MapPin, Sparkles, Check, Coffee, Code2, Server } from 'lucide-react';
 import { portfolioProfile } from '../data/portfolioData';
+import { soundEffects } from '../utils/uiSound';
+import { SpotlightCard } from './SpotlightCard';
 
 interface AboutSectionProps {
   onOpenResume: () => void;
@@ -8,8 +10,17 @@ interface AboutSectionProps {
 }
 
 export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenResume, onOpenContact }) => {
+  const [copiedEmail, setCopiedEmail] = useState(false);
+
+  const handleCopyEmail = () => {
+    soundEffects.playSuccess();
+    navigator.clipboard.writeText('khaddeshivam@gmail.com');
+    setCopiedEmail(true);
+    setTimeout(() => setCopiedEmail(false), 2000);
+  };
+
   return (
-    <section id="about" className="py-16 lg:py-24 border-t border-[#E5E0D5] bg-[#F7F4EC]">
+    <section id="about" className="py-16 lg:py-24 border-t border-[#E2DDD2] bg-[#F7F4EC]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           {/* Left Column: Narrative and Manifesto */}
@@ -38,21 +49,49 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenResume, onOpen
               I believe great software is neither pure engineering nor pure aesthetics—it lives at the intersection. Clean architecture, dependable concurrency, and thoughtful interaction design turn complicated technical systems into empowering tools.
             </p>
 
-            {/* Action Bar */}
+            {/* Quick Micro-stats Strip */}
+            <div className="grid grid-cols-3 gap-3 pt-2">
+              <SpotlightCard className="p-3 bg-white/80 rounded-xl border border-[#DDD7C9] text-center space-y-0.5">
+                <span className="font-mono text-base font-bold text-[#1E382B]">Java 21</span>
+                <span className="block text-[10px] text-[#6A756E] uppercase font-mono">Core Backend</span>
+              </SpotlightCard>
+              <SpotlightCard className="p-3 bg-white/80 rounded-xl border border-[#DDD7C9] text-center space-y-0.5">
+                <span className="font-mono text-base font-bold text-[#3A6351]">Spring + RAG</span>
+                <span className="block text-[10px] text-[#6A756E] uppercase font-mono">Architecture</span>
+              </SpotlightCard>
+              <SpotlightCard className="p-3 bg-white/80 rounded-xl border border-[#DDD7C9] text-center space-y-0.5">
+                <span className="font-mono text-base font-bold text-[#D97746]">&lt; 150ms</span>
+                <span className="block text-[10px] text-[#6A756E] uppercase font-mono">Target Latency</span>
+              </SpotlightCard>
+            </div>
+
+            {/* Action Bar with sound and copy email microinteraction */}
             <div className="flex flex-wrap items-center gap-3 pt-4">
               <button
-                onClick={onOpenResume}
-                className="px-4 py-2.5 text-xs font-semibold text-[#1E2522] bg-white border border-[#DDD7C9] rounded-xl hover:bg-[#EAE5DA] transition-all flex items-center gap-2 shadow-xs"
+                onClick={() => {
+                  soundEffects.playClick();
+                  onOpenResume();
+                }}
+                className="px-4 py-2.5 text-xs font-semibold text-[#1E2522] bg-white border border-[#DDD7C9] rounded-xl hover:bg-[#EAE5DA] hover:-translate-y-0.5 active:translate-y-0 active:scale-95 transition-all flex items-center gap-2 shadow-2xs"
               >
                 <Download className="w-4 h-4 text-[#1E382B]" />
                 <span>Download Résumé</span>
+              </button>
+
+              <button
+                onClick={handleCopyEmail}
+                className="px-4 py-2.5 text-xs font-semibold text-[#1E2522] bg-white border border-[#DDD7C9] rounded-xl hover:bg-[#EAE5DA] hover:-translate-y-0.5 active:translate-y-0 active:scale-95 transition-all flex items-center gap-2 shadow-2xs"
+              >
+                {copiedEmail ? <Check className="w-4 h-4 text-[#3A6351]" /> : <Mail className="w-4 h-4 text-[#D97746]" />}
+                <span>{copiedEmail ? 'Copied Email!' : 'Copy Email'}</span>
               </button>
 
               <a
                 href="https://github.com/shivamkhadde"
                 target="_blank"
                 rel="noreferrer"
-                className="px-4 py-2.5 text-xs font-semibold text-[#1E2522] bg-white border border-[#DDD7C9] rounded-xl hover:bg-[#EAE5DA] transition-all flex items-center gap-2 shadow-xs"
+                onClick={() => soundEffects.playClick()}
+                className="px-4 py-2.5 text-xs font-semibold text-[#1E2522] bg-white border border-[#DDD7C9] rounded-xl hover:bg-[#EAE5DA] hover:-translate-y-0.5 active:translate-y-0 active:scale-95 transition-all flex items-center gap-2 shadow-2xs"
               >
                 <Github className="w-4 h-4 text-[#1E2522]" />
                 <span>GitHub</span>
@@ -62,19 +101,12 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenResume, onOpen
                 href="https://linkedin.com/in/shivamkhadde"
                 target="_blank"
                 rel="noreferrer"
-                className="px-4 py-2.5 text-xs font-semibold text-[#1E2522] bg-white border border-[#DDD7C9] rounded-xl hover:bg-[#EAE5DA] transition-all flex items-center gap-2 shadow-xs"
+                onClick={() => soundEffects.playClick()}
+                className="px-4 py-2.5 text-xs font-semibold text-[#1E2522] bg-white border border-[#DDD7C9] rounded-xl hover:bg-[#EAE5DA] hover:-translate-y-0.5 active:translate-y-0 active:scale-95 transition-all flex items-center gap-2 shadow-2xs"
               >
                 <Linkedin className="w-4 h-4 text-[#0077B5]" />
                 <span>LinkedIn</span>
               </a>
-
-              <button
-                onClick={onOpenContact}
-                className="px-4 py-2.5 text-xs font-semibold text-[#1E2522] bg-white border border-[#DDD7C9] rounded-xl hover:bg-[#EAE5DA] transition-all flex items-center gap-2 shadow-xs"
-              >
-                <Mail className="w-4 h-4 text-[#D97746]" />
-                <span>Email</span>
-              </button>
             </div>
           </div>
 
@@ -87,7 +119,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenResume, onOpen
               </span>
             </div>
 
-            <div className="relative p-3 bg-white rounded-2xl border border-[#DDD7C9] shadow-lg transform lg:rotate-1 hover:rotate-0 transition-transform duration-300">
+            <SpotlightCard className="relative p-3 bg-white rounded-2xl border border-[#DDD7C9] shadow-lg transform lg:rotate-1 hover:rotate-0 transition-transform duration-300">
               <div className="relative rounded-xl overflow-hidden aspect-4/3 bg-[#EAE5DA]">
                 <img
                   src="/src/assets/images/about_portrait_nature_1792492425530.jpg"
@@ -95,7 +127,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenResume, onOpen
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent pointer-events-none" />
 
                 {/* Bottom Overlay Card */}
                 <div className="absolute bottom-3 left-3 right-3 p-3 bg-[#1E2522]/90 backdrop-blur-md rounded-xl border border-white/10 text-white space-y-1">
@@ -110,7 +142,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenResume, onOpen
                   </p>
                 </div>
               </div>
-            </div>
+            </SpotlightCard>
           </div>
         </div>
       </div>

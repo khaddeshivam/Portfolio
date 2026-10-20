@@ -3,6 +3,7 @@ import { LeftSidebarRail } from './components/LeftSidebarRail';
 import { TopNav } from './components/TopNav';
 import { HeroSection } from './components/HeroSection';
 import { SelectedWorkSection } from './components/SelectedWorkSection';
+import { InteractiveCraftLab } from './components/InteractiveCraftLab';
 import { AboutSection } from './components/AboutSection';
 import { ExperienceSkillsSection } from './components/ExperienceSkillsSection';
 import { ServicesSection } from './components/ServicesSection';
@@ -15,10 +16,15 @@ import { ResumeModal } from './components/ResumeModal';
 import { ContactModal } from './components/ContactModal';
 import { CommandPalette } from './components/CommandPalette';
 import { Project, BuildNote } from './types/portfolio';
+import { soundEffects } from './utils/uiSound';
+import { lofiEngine } from './utils/audioSynth';
+import { Music2, Play, Pause, ChevronUp } from 'lucide-react';
 
 export default function App() {
   const [currentView, setCurrentView] = useState<'portfolio' | 'blueprint'>('portfolio');
   const [activeSection, setActiveSection] = useState<string>('hero');
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [mobileIsPlaying, setMobileIsPlaying] = useState(false);
 
   // Modal States
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -32,7 +38,7 @@ export default function App() {
   useEffect(() => {
     if (currentView !== 'portfolio') return;
 
-    const sections = ['hero', 'work', 'about', 'experience', 'services', 'notes', 'contact'];
+    const sections = ['hero', 'work', 'craft-lab', 'about', 'experience', 'services', 'notes', 'contact'];
     const handleScroll = () => {
       const scrollY = window.scrollY + 200;
       for (const sectionId of sections) {
@@ -57,6 +63,7 @@ export default function App() {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
+        soundEffects.playPop();
         setIsCommandOpen(prev => !prev);
       }
     };
@@ -65,6 +72,7 @@ export default function App() {
   }, []);
 
   const scrollToSection = (sectionId: string) => {
+    soundEffects.playPop();
     if (currentView !== 'portfolio') {
       setCurrentView('portfolio');
       setTimeout(() => {
@@ -78,8 +86,15 @@ export default function App() {
   };
 
   const handleOpenContact = (type = 'career') => {
+    soundEffects.playClick();
     setContactInitialType(type);
     setIsContactOpen(true);
+  };
+
+  const toggleMobileAudio = () => {
+    soundEffects.playClick();
+    const playing = lofiEngine.toggle();
+    setMobileIsPlaying(playing);
   };
 
   return (
@@ -87,7 +102,10 @@ export default function App() {
       {/* Top Header Navbar */}
       <TopNav
         currentView={currentView}
-        onViewChange={setCurrentView}
+        onViewChange={(view) => {
+          soundEffects.playPop();
+          setCurrentView(view);
+        }}
         onNavigate={scrollToSection}
         onOpenContact={() => handleOpenContact('career')}
       />
@@ -100,21 +118,35 @@ export default function App() {
           <LeftSidebarRail
             activeSection={activeSection}
             onNavigate={scrollToSection}
+            isCollapsed={isSidebarCollapsed}
+            onToggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
           />
 
           {/* Main Portfolio Content Stream */}
-          <main className="flex-1 lg:pl-20 xl:pl-24 w-full overflow-x-hidden">
+          <main
+            className={`flex-1 transition-all duration-300 w-full overflow-x-hidden ${
+              isSidebarCollapsed ? 'lg:pl-6' : 'lg:pl-[76px] xl:pl-[84px]'
+            }`}
+          >
             <HeroSection
               onExploreWork={() => scrollToSection('work')}
               onDiscussProject={() => handleOpenContact('freelance')}
             />
 
             <SelectedWorkSection
-              onSelectProject={(project) => setSelectedProject(project)}
+              onSelectProject={(project) => {
+                soundEffects.playClick();
+                setSelectedProject(project);
+              }}
             />
 
+            <InteractiveCraftLab />
+
             <AboutSection
-              onOpenResume={() => setIsResumeOpen(true)}
+              onOpenResume={() => {
+                soundEffects.playClick();
+                setIsResumeOpen(true);
+              }}
               onOpenContact={() => handleOpenContact('career')}
             />
 
@@ -125,15 +157,40 @@ export default function App() {
             />
 
             <BuildNotesSection
-              onSelectNote={(note) => setSelectedNote(note)}
+              onSelectNote={(note) => {
+                soundEffects.playClick();
+                setSelectedNote(note);
+              }}
             />
 
             <ContactFooterSection
-              onOpenResume={() => setIsResumeOpen(true)}
+              onOpenResume={() => {
+                soundEffects.playClick();
+                setIsResumeOpen(true);
+              }}
               onOpenContact={handleOpenContact}
-              onOpenCommand={() => setIsCommandOpen(true)}
+              onOpenCommand={() => {
+                soundEffects.playPop();
+                setIsCommandOpen(true);
+              }}
             />
           </main>
+        </div>
+      )}
+
+      {/* Mobile Floating Sound Pill (for screens where left rail is hidden) */}
+      {currentView === 'portfolio' && (
+        <div className="lg:hidden fixed bottom-4 left-4 z-40 flex items-center gap-2 p-1.5 bg-[#1E2522]/95 backdrop-blur-md text-white rounded-full border border-white/20 shadow-xl">
+          <button
+            onClick={toggleMobileAudio}
+            className="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center text-white active:scale-95"
+            aria-label="Toggle lofi audio"
+          >
+            {mobileIsPlaying ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5 ml-0.5" />}
+          </button>
+          <span className="text-[10px] font-mono pr-2">
+            {mobileIsPlaying ? 'Playing Lofi' : 'Lofi Study'}
+          </span>
         </div>
       )}
 

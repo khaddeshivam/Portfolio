@@ -1,12 +1,27 @@
 import React, { useState } from 'react';
-import { Briefcase, GraduationCap, Compass, Layers, CheckCircle2, ChevronRight } from 'lucide-react';
+import { Briefcase, GraduationCap, Compass, Layers, CheckCircle2, ChevronRight, Search, Zap } from 'lucide-react';
 import { sampleExperience, sampleSkills } from '../data/portfolioData';
+import { soundEffects } from '../utils/uiSound';
+import { SpotlightCard } from './SpotlightCard';
 
 export const ExperienceSkillsSection: React.FC = () => {
   const [selectedSkill, setSelectedSkill] = useState<string | null>(null);
+  const [skillSearch, setSkillSearch] = useState('');
+  const [activeTab, setActiveTab] = useState<'All' | 'Backend' | 'Frontend' | 'AI / ML' | 'Tools & Others'>('All');
+
+  const filteredCategories = sampleSkills
+    .filter(cat => activeTab === 'All' || cat.category === activeTab)
+    .map(cat => ({
+      ...cat,
+      skills: cat.skills.filter(s =>
+        s.name.toLowerCase().includes(skillSearch.toLowerCase()) ||
+        (s.proficiency && s.proficiency.toLowerCase().includes(skillSearch.toLowerCase()))
+      )
+    }))
+    .filter(cat => cat.skills.length > 0);
 
   return (
-    <section id="experience" className="py-16 lg:py-24 border-t border-[#E5E0D5]">
+    <section id="experience" className="py-16 lg:py-24 border-t border-[#E2DDD2]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
           {/* Section 04: Experience & Education */}
@@ -26,7 +41,7 @@ export const ExperienceSkillsSection: React.FC = () => {
             {/* Timeline cards */}
             <div className="space-y-4">
               {/* TecheQube Intern */}
-              <div className="p-5 bg-[#FBF9F5] border border-[#DDD7C9] rounded-2xl hover:border-[#1E382B]/30 transition-all shadow-xs space-y-3">
+              <SpotlightCard className="p-5 bg-[#FBF9F5] border border-[#DDD7C9] rounded-2xl hover:border-[#1E382B]/30 transition-all shadow-xs space-y-3">
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex items-center gap-3">
                     <div className="w-9 h-9 rounded-xl bg-[#EBE7DC] flex items-center justify-center text-[#1E382B]">
@@ -56,10 +71,10 @@ export const ExperienceSkillsSection: React.FC = () => {
                     <span>Collaborated closely with cross-functional teams on full-stack features</span>
                   </li>
                 </ul>
-              </div>
+              </SpotlightCard>
 
               {/* Bachelor of Engineering */}
-              <div className="p-5 bg-[#FBF9F5] border border-[#DDD7C9] rounded-2xl hover:border-[#1E382B]/30 transition-all shadow-xs space-y-3">
+              <SpotlightCard className="p-5 bg-[#FBF9F5] border border-[#DDD7C9] rounded-2xl hover:border-[#1E382B]/30 transition-all shadow-xs space-y-3">
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex items-center gap-3">
                     <div className="w-9 h-9 rounded-xl bg-[#EBE7DC] flex items-center justify-center text-[#1E382B]">
@@ -78,10 +93,10 @@ export const ExperienceSkillsSection: React.FC = () => {
                 <p className="text-xs text-[#505A54] leading-relaxed">
                   Relevant coursework: Data Structures, Algorithms, DBMS, Operating Systems, Computer Networks, AI/ML.
                 </p>
-              </div>
+              </SpotlightCard>
 
               {/* Continuous Learning */}
-              <div className="p-5 bg-[#FBF9F5] border border-[#DDD7C9] rounded-2xl hover:border-[#1E382B]/30 transition-all shadow-xs space-y-2">
+              <SpotlightCard className="p-5 bg-[#FBF9F5] border border-[#DDD7C9] rounded-2xl hover:border-[#1E382B]/30 transition-all shadow-xs space-y-2">
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex items-center gap-3">
                     <div className="w-9 h-9 rounded-xl bg-[#EBE7DC] flex items-center justify-center text-[#1E382B]">
@@ -99,7 +114,7 @@ export const ExperienceSkillsSection: React.FC = () => {
                 <p className="text-xs text-[#505A54]">
                   Focus: Java, Full-Stack, GenAI, RAG Architectures, and Product Development.
                 </p>
-              </div>
+              </SpotlightCard>
             </div>
           </div>
 
@@ -117,10 +132,47 @@ export const ExperienceSkillsSection: React.FC = () => {
               <p className="text-sm text-[#616B64]">Disciplined technical competencies.</p>
             </div>
 
+            {/* Interactive Search & Filter Controls */}
+            <div className="space-y-3">
+              <div className="relative">
+                <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-[#8E9B93]" />
+                <input
+                  type="text"
+                  placeholder="Filter skills (e.g. Java, Docker, RAG)..."
+                  value={skillSearch}
+                  onChange={(e) => {
+                    soundEffects.playKey();
+                    setSkillSearch(e.target.value);
+                  }}
+                  className="w-full pl-8 pr-3 py-1.5 text-xs bg-[#FBF9F5] border border-[#DDD7C9] rounded-xl text-[#1E2522] placeholder:text-[#8E9B93] focus:outline-none focus:ring-1 focus:ring-[#1E382B]"
+                />
+              </div>
+
+              {/* Category tabs */}
+              <div className="flex flex-wrap gap-1">
+                {(['All', 'Backend', 'Frontend', 'AI / ML', 'Tools & Others'] as const).map((tab) => (
+                  <button
+                    key={tab}
+                    onClick={() => {
+                      soundEffects.playPop();
+                      setActiveTab(tab);
+                    }}
+                    className={`text-[10px] font-mono px-2.5 py-1 rounded-lg transition-all ${
+                      activeTab === tab
+                        ? 'bg-[#1E382B] text-white font-semibold'
+                        : 'bg-[#EAE5DA] text-[#55605A] hover:bg-[#DDD7C9]'
+                    }`}
+                  >
+                    {tab}
+                  </button>
+                ))}
+              </div>
+            </div>
+
             {/* Categories */}
             <div className="space-y-4">
-              {sampleSkills.map((category) => (
-                <div
+              {filteredCategories.map((category) => (
+                <SpotlightCard
                   key={category.category}
                   className="p-4 bg-[#FBF9F5] border border-[#DDD7C9] rounded-2xl space-y-2.5"
                 >
@@ -137,10 +189,13 @@ export const ExperienceSkillsSection: React.FC = () => {
                     {category.skills.map((skill) => (
                       <button
                         key={skill.name}
-                        onClick={() => setSelectedSkill(selectedSkill === skill.name ? null : skill.name)}
-                        className={`text-xs px-2.5 py-1 rounded-md border font-mono transition-all text-left ${
+                        onClick={() => {
+                          soundEffects.playPop();
+                          setSelectedSkill(selectedSkill === skill.name ? null : skill.name);
+                        }}
+                        className={`text-xs px-2.5 py-1 rounded-md border font-mono transition-all text-left active:scale-95 ${
                           selectedSkill === skill.name
-                            ? 'bg-[#1E382B] text-white border-[#1E382B]'
+                            ? 'bg-[#1E382B] text-white border-[#1E382B] shadow-xs'
                             : skill.highlight
                             ? 'bg-white border-[#DDD7C9] text-[#1E2522] hover:border-[#1E382B]'
                             : 'bg-[#F2EFE8] border-[#E2DDCF] text-[#4F5953] hover:border-[#1E382B]'
@@ -149,12 +204,12 @@ export const ExperienceSkillsSection: React.FC = () => {
                       >
                         <span>{skill.name}</span>
                         {skill.proficiency && selectedSkill === skill.name && (
-                          <span className="ml-1 text-[10px] opacity-80">({skill.proficiency})</span>
+                          <span className="ml-1 text-[10px] text-[#A6B2AB]">({skill.proficiency})</span>
                         )}
                       </button>
                     ))}
                   </div>
-                </div>
+                </SpotlightCard>
               ))}
             </div>
           </div>
