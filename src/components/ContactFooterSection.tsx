@@ -137,71 +137,69 @@ export const ContactFooterSection: React.FC<ContactFooterSectionProps> = ({
           </SpotlightCard>
         </div>
 
-        {/* Floating Bottom Quick Action Dock (siddz.com / Linear style) */}
-        <div className="pt-8 flex flex-col items-center justify-center gap-6">
-          <div className="inline-flex items-center gap-1 sm:gap-2 p-1.5 sm:p-2 bg-[#1B241E]/95 backdrop-blur-lg border border-white/20 rounded-full shadow-2xl">
+        {/* Footer Bottom Bar: Social Links & Copyright */}
+        <div className="pt-10 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-[#8E9E94]">
+          <div className="flex flex-wrap items-center justify-center gap-4 text-[#D1DDD5]">
             <a
               href="https://github.com/shivamkhadde"
               target="_blank"
               rel="noreferrer"
               onClick={() => soundEffects.playClick()}
-              className="px-3 py-1.5 rounded-full hover:bg-white/10 text-xs font-medium text-[#D1DDD5] flex items-center gap-1.5 transition-colors"
+              className="hover:text-white transition-colors flex items-center gap-1.5"
             >
               <Github className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">GitHub</span>
+              <span>GitHub</span>
             </a>
-
+            <span className="text-white/20">·</span>
             <a
               href="https://linkedin.com/in/shivamkhadde"
               target="_blank"
               rel="noreferrer"
               onClick={() => soundEffects.playClick()}
-              className="px-3 py-1.5 rounded-full hover:bg-white/10 text-xs font-medium text-[#D1DDD5] flex items-center gap-1.5 transition-colors"
+              className="hover:text-white transition-colors flex items-center gap-1.5"
             >
               <Linkedin className="w-3.5 h-3.5 text-[#61AFEF]" />
-              <span className="hidden sm:inline">LinkedIn</span>
+              <span>LinkedIn</span>
             </a>
-
+            <span className="text-white/20">·</span>
             <button
               onClick={() => {
                 soundEffects.playClick();
                 onOpenResume();
               }}
-              className="px-3 py-1.5 rounded-full hover:bg-white/10 text-xs font-medium text-[#D1DDD5] flex items-center gap-1.5 transition-colors"
+              className="hover:text-white transition-colors flex items-center gap-1.5"
             >
               <FileText className="w-3.5 h-3.5 text-[#98C379]" />
-              <span className="hidden sm:inline">Résumé</span>
+              <span>Résumé</span>
             </button>
-
+            <span className="text-white/20">·</span>
             <button
               onClick={() => {
                 soundEffects.playClick();
                 onOpenContact();
               }}
-              className="px-3 py-1.5 rounded-full hover:bg-white/10 text-xs font-medium text-[#D1DDD5] flex items-center gap-1.5 transition-colors"
+              className="hover:text-white transition-colors flex items-center gap-1.5"
             >
               <Mail className="w-3.5 h-3.5 text-[#E5C07B]" />
-              <span className="hidden sm:inline">Email</span>
+              <span>Email</span>
             </button>
-
-            <div className="w-[1px] h-4 bg-white/20 mx-1" />
-
+            <span className="text-white/20">·</span>
             <button
               onClick={() => {
                 soundEffects.playPop();
                 onOpenCommand();
               }}
-              className="px-3 py-1.5 rounded-full bg-white/15 hover:bg-white/25 text-xs font-mono font-medium text-white flex items-center gap-1.5 transition-colors shadow-xs active:scale-95"
+              className="hover:text-white font-mono text-[11px] transition-colors flex items-center gap-1 text-[#D1DDD5]"
               title="Open Command Palette (⌘K)"
             >
-              <Command className="w-3 h-3" />
+              <Command className="w-3 h-3 text-[#A2B5A8]" />
               <span>⌘K</span>
             </button>
           </div>
 
-          {/* Copyright & Stamp */}
-          <div className="w-full flex flex-col sm:flex-row items-center justify-between text-xs text-[#8E9E94] border-t border-white/10 pt-6 gap-2">
+          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-center md:text-right">
             <p>© 2024 Shivam Khadde · Built with Google AI Studio</p>
+            <span className="hidden sm:inline text-white/20">·</span>
             <p className="font-mono text-[11px] tracking-wider uppercase text-[#B5C7BB]">
               {portfolioProfile.stamp}
             </p>

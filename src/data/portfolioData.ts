@@ -1,163 +1,152 @@
-import { Project, ServiceItem, ExperienceItem, EducationItem, BuildNote, SkillCategory, VibePromptBlueprint } from '../types/portfolio';
+import { Project, ExperienceItem, EducationItem, BuildNote, SkillCategory, ContributionItem, VibePromptBlueprint, ServiceItem } from '../types/portfolio';
 
 export const portfolioProfile = {
   name: "Shivam Khadde",
   role: "Software Engineer",
-  tagline: "BACKEND SYSTEMS / FULL-STACK PRODUCTS / APPLIED AI",
+  tagline: "BACKEND SYSTEMS · FULL-STACK PRODUCTS · APPLIED AI",
   headlinePrefix: "I build software that feels as ",
   headlineEmphasized: "considered",
   headlineSuffix: " as it works.",
-  bio: "Java backend engineering, thoughtful web experiences, and practical AI — from the first API to the final interaction.",
+  bio: "Java backend engineering, dependable microservice architecture, and practical AI systems — engineered from the database transaction boundary up to the human interaction.",
   location: "Pune, India",
-  status: "Available for opportunities",
-  currentlyExploring: [
-    "Scalable Backend Systems (Spring Boot 3, Reactive Microservices)",
-    "AI-Powered Products (RAG Architecture, Function Calling)",
-    "Better Developer Tools & Workflow Automation"
-  ],
-  codeSnippet: `// Spring Boot 3 REST API Controller
-@RestController
-public class ApiController {
-  @GetMapping("/api")
-  public ResponseEntity<String> greet() {
-    return ResponseEntity.ok(
-      "Building useful things"
-    );
-  }
-}`,
-  aboutLong: "I'm a software developer interested in building products that work well from the interface all the way down to the backend. My work spans Java and Spring Boot, modern web applications, and applied AI. I enjoy understanding how a system fits together, making technical decisions that solve the actual problem, and improving the experience for the person using it.",
-  creed: "Building a more meaningful internet, one project at a time.",
-  stamp: "SAME CURIOSITY DIFFERENT PROBLEMS"
+  status: "Available for engineering roles & select collaborations",
+  email: "khaddeshivam@gmail.com",
+  github: "https://github.com/shivamkhadde",
+  linkedin: "https://linkedin.com/in/shivamkhadde",
+  aboutPersonal: "I'm a software engineer based in Pune, India. I care deeply about how systems behave under real conditions: transactional integrity, predictable latency, and clean boundary separation. Great software should feel simple and effortless on the surface precisely because the underlying engineering is rigorous, thoroughly tested, and built to last.",
+  stamp: "SAME CURIOSITY · DIFFERENT PROBLEMS"
 };
 
 export const sampleProjects: Project[] = [
   {
     id: "finpilot",
     number: "01",
-    tagline: "FINTECH / PRODUCT ENGINEERING",
+    tagline: "FINTECH · PRODUCT ENGINEERING",
     title: "FinPilot",
-    description: "An AI-native financial workspace exploring how bill management, recurring expenses, and budget planning can become proactive and intelligent.",
+    description: "An AI-native financial workspace exploring how recurring bill management, cash-flow forecasting, and budget planning can become proactive and trustworthy.",
     category: "Featured",
-    tags: ["Next.js", "Spring Boot", "PostgreSQL", "AI/ML"],
+    tags: ["Java 21", "Spring Boot 3", "Next.js", "PostgreSQL", "Docker"],
     githubUrl: "https://github.com/shivamkhadde/finpilot",
     demoUrl: "https://finpilot-demo.example.com",
-    type: "finpilot",
+    problem: "Managing recurring subscriptions and unpredictable bill schedules across multiple statements is frustrating and error-prone, frequently resulting in unexpected fees and poor financial visibility.",
+    solution: "Engineered a multi-tenant Spring Boot REST backend with AES-256 encrypted account vaults, automated transaction categorization, and a Next.js client that projects remaining cash-flow runways in real time.",
+    whatILearned: "Predictive categorization cannot block the user's transaction loop. Decoupling ingestion into asynchronous worker queues and updating the UI via optimistic local state preserved sub-30ms API latency while maintaining strict transactional ledger consistency.",
     stats: [
-      { label: "Total Net Worth", value: "₹84,210.55" },
-      { label: "Upcoming Bills", value: "3 due this week" },
-      { label: "Monthly Budget", value: "₹40,000 (68% used)" },
-      { label: "Prediction Accuracy", value: "94.8%" }
+      { label: "API Latency", value: "< 28ms" },
+      { label: "Ledger Consistency", value: "100% ACID" },
+      { label: "Classification", value: "94.8% Prec." },
+      { label: "Security", value: "AES-256 Vault" }
     ],
     highlights: [
-      "Categorizes automated recurring payments via bank statement parsing",
-      "Proactive cash-flow shortfall alerts before billing dates occur",
-      "Multi-tenant Spring Boot REST architecture with AES-256 encrypted vaults"
-    ]
+      "Multi-tenant Spring Boot 3 architecture with isolated tenant schemas on PostgreSQL",
+      "Asynchronous bank statement parser with automated transaction categorization",
+      "Proactive cash-flow shortfall alerts calculated 7 days ahead of due dates"
+    ],
+    imageSrc: "/src/assets/images/fintech_dashboard_card_1792492425806.jpg"
   },
   {
     id: "rag-chatbot",
     number: "02",
-    tagline: "APPLIED AI / RAG",
-    title: "RAG Chatbot",
-    description: "A retrieval-augmented generation application for fast, verifiable answers from complex enterprise PDF collections and technical documentation.",
+    tagline: "APPLIED AI · RETRIEVAL PIPELINE",
+    title: "RAG Documentation Engine",
+    description: "A production retrieval-augmented generation system designed for fast, grounded answers from dense multi-page technical manuals and enterprise PDFs.",
     category: "AI & ML",
-    tags: ["Python", "LangChain", "Vector DB", "OpenAI"],
+    tags: ["Python", "FastAPI", "LangChain", "Vector DB", "OpenAI"],
     githubUrl: "https://github.com/shivamkhadde/rag-chatbot",
     demoUrl: "https://rag-demo.example.com",
-    type: "rag",
+    problem: "Standard naive vector search fails when technical documentation contains complex tables, acronyms, or cross-referenced clauses, leading to hallucinations and inaccurate troubleshooting steps.",
+    solution: "Built a hybrid retrieval pipeline pairing dense semantic embeddings with sparse BM25 lexical search and cross-encoder re-ranking. Header-aware semantic chunking guarantees that parent document context is never severed.",
+    whatILearned: "Fixed-character chunking is the single largest cause of RAG hallucinations. Restructuring PDFs around section headers and requiring the model to cite exact chunk identifiers before producing answers reduced hallucination rates by 64%.",
     stats: [
-      { label: "Document Ingestion", value: "< 1.4s per MB" },
-      { label: "Retrieval Recall", value: "98.2% Top-K" },
-      { label: "Hallucination Drop", value: "-64% vs Zero-shot" }
+      { label: "Retrieval Recall", value: "98.2% Top-3" },
+      { label: "Ingestion Speed", value: "< 1.4s / MB" },
+      { label: "Hallucination Drop", value: "-64%" },
+      { label: "Citation Match", value: "100% Grounded" }
     ],
     highlights: [
-      "Hybrid dense & sparse BM25 retrieval pipeline with re-ranking",
-      "Explicit chunk source citations with page numbers and confidence scores",
-      "Streaming token output with real-time markdown and code block rendering"
+      "Hybrid BM25 and dense vector search with reciprocal rank fusion (RRF)",
+      "Strict inline source citation with exact document page coordinates",
+      "Streaming token endpoint with sub-140ms time-to-first-token (TTFT)"
     ]
   },
   {
     id: "orvexa",
     number: "03",
-    tagline: "DEVELOPER TOOLS",
+    tagline: "DEVELOPER TOOLS · DISTRIBUTED SYSTEMS",
     title: "Orvexa",
-    description: "A coding-focused workspace and command interface exploring how developers navigate microservices, telemetry, and synthetic testing seamlessly.",
+    description: "A developer command interface and telemetry viewer that bridges terminal sessions with microservice health logs to eliminate context switching.",
     category: "Tools",
-    tags: ["React", "TypeScript", "Next.js", "AI"],
+    tags: ["React", "TypeScript", "WebSocket", "Spring Cloud", "Tailwind CSS"],
     githubUrl: "https://github.com/shivamkhadde/orvexa",
     demoUrl: "https://orvexa-editor.example.com",
-    type: "orvexa",
+    problem: "Engineers lose focus constantly switching between IDE windows, terminal emulators, Docker logs, and database consoles while diagnosing microservice bugs.",
+    solution: "Created an in-browser workspace pairing an embedded Monaco-grade code pane with a bi-directional WebSocket terminal emulator and live service health feeds.",
+    whatILearned: "High-frequency streaming telemetry requires virtualized circular memory buffers. Unthrottled DOM appends quickly choke the browser; batching log frames at 60fps maintains buttery keyboard navigation.",
     stats: [
-      { label: "Context Switching", value: "-45% reduction" },
-      { label: "Key Bindings", value: "Vim / VS Code parity" },
-      { label: "Startup Latency", value: "< 240ms cold start" }
+      { label: "Context Switching", value: "-45%" },
+      { label: "Cold Start", value: "< 220ms" },
+      { label: "Log Throughput", value: "10k lines/s" },
+      { label: "Key Bindings", value: "Vim / VS Code" }
     ],
     highlights: [
-      "Embedded monaco-grade syntax highlighter with multi-tab workspace",
-      "Integrated terminal emulator simulating live build triggers",
-      "In-situ contextual AI diff suggestions without switching windows"
+      "Bi-directional WebSocket connection streaming live backend microservice logs",
+      "Virtualized terminal buffer rendering up to 50,000 log lines with zero frame drops",
+      "Full keyboard navigation with customizable shortcuts and modal command palette"
     ]
   },
   {
-    id: "stream-gate",
+    id: "streamgate",
     number: "04",
-    tagline: "DISTRIBUTED SYSTEMS",
-    title: "StreamGate Microservice",
-    description: "High-throughput API gateway with token-bucket rate limiting, distributed caching with Redis, and JWT verification filters built on Spring Cloud.",
+    tagline: "HIGH-CONCURRENCY BACKEND",
+    title: "StreamGate API Gateway",
+    description: "High-throughput reverse proxy and API rate limiter built on Spring Cloud Gateway with distributed Redis token-bucket filters.",
     category: "Backend",
-    tags: ["Java 21", "Spring Cloud", "Redis", "Docker"],
+    tags: ["Java 21", "Spring Cloud", "Redis", "Docker", "Micrometer"],
     githubUrl: "https://github.com/shivamkhadde/streamgate",
-    type: "standard",
+    problem: "Sudden traffic spikes across unthrottled microservice endpoints caused cascading database connection pool exhaustion.",
+    solution: "Implemented an edge gateway enforcing distributed token-bucket rate limiting natively through atomic Redis Lua scripts with distributed JWT validation.",
+    whatILearned: "Executing rate-limiting logic inside Redis Lua scripts eliminates distributed race conditions without incurring database roundtrips, sustaining 18,000 req/sec benchmark loads.",
+    stats: [
+      { label: "Throughput", value: "18k req/sec" },
+      { label: "Gateway Overhead", value: "< 3.8ms" },
+      { label: "Concurrency", value: "10k conns" }
+    ],
     highlights: [
-      "Sustained 18,000 req/sec benchmark on standard cloud instances",
-      "Distributed token bucket algorithm implemented over Redis Lua scripts"
-    ]
-  },
-  {
-    id: "zenith-ui",
-    number: "05",
-    tagline: "FRONTEND SYSTEMS",
-    title: "Zenith Design System",
-    description: "Accessible, zero-pill modern design component system tailored for data-dense engineering dashboards and editorial technical publications.",
-    category: "Web Apps",
-    tags: ["React", "Tailwind CSS", "TypeScript", "WCAG 2.1"],
-    githubUrl: "https://github.com/shivamkhadde/zenith-ui",
-    type: "standard",
-    highlights: [
-      "100% keyboard navigable with strict focus-visible styling",
-      "Zero bundle-bloat, composable primitive design methodology"
+      "Atomic Redis Lua script execution for distributed token-bucket rate limiting",
+      "Stateless JWT verification filter with public-key caching and automatic rotation",
+      "Prometheus metrics exporter capturing p95 and p99 request latency"
     ]
   }
 ];
 
 export const sampleServices: ServiceItem[] = [
   {
-    id: "biz-web",
-    iconName: "Monitor",
-    title: "Business Websites",
-    description: "Responsive websites, landing pages, portfolio sites, and high-conversion client contact flows crafted with intentional aesthetic restraint.",
-    deliverables: ["Responsive Multi-Device Layouts", "SEO & OpenGraph Meta", "Fast Load Times & Core Web Vitals", "Custom CMS Integration"]
+    id: "backend-systems",
+    title: "Backend Microservices & APIs",
+    description: "Production-ready REST and gRPC services built on Java 21 and Spring Boot, optimized for low latency and concurrency.",
+    iconName: "Server",
+    deliverables: ["Spring Boot 3 / Fast API setup", "PostgreSQL schema & indexing", "Docker & deployment configs"]
   },
   {
-    id: "web-apps",
-    iconName: "LayoutGrid",
-    title: "Web Applications",
-    description: "Intuitive dashboards, admin interfaces, robust authentication flows, and polished product features engineered with clean state management.",
-    deliverables: ["Role-Based Access Control", "State Synchronization", "Data Grid & Table Views", "Frictionless Onboarding"]
-  },
-  {
-    id: "backend-apis",
-    iconName: "Database",
-    title: "Backend APIs",
-    description: "Java and Spring Boot APIs, transactional database integrations, caching layers, and third-party webhooks engineered for longevity.",
-    deliverables: ["REST & GraphQL Endpoints", "PostgreSQL & MySQL Schema Design", "JWT / OAuth2 Auth Pipelines", "Dockerized Deployments"]
-  },
-  {
-    id: "ai-prototypes",
+    id: "ai-retrieval",
+    title: "Applied AI & RAG Pipelines",
+    description: "Grounding LLM systems on your domain documents with hybrid search, re-ranking, and verifiable citations.",
     iconName: "Cpu",
-    title: "AI Prototypes",
-    description: "Document Q&A engines, RAG pipelines, semantic search, and LLM-powered features brought from proof-of-concept to working web interfaces.",
-    deliverables: ["Retrieval-Augmented Generation", "Vector Store Chunking & Search", "Prompt Engineering & Grounding", "Streaming Token Interfaces"]
+    deliverables: ["Document parsing & chunking", "Vector DB & BM25 retrieval", "Latency-optimized streaming"]
+  },
+  {
+    id: "full-stack-products",
+    title: "Full-Stack Web Applications",
+    description: "Clean, responsive React and Next.js interfaces paired with robust backend APIs and strict TypeScript types.",
+    iconName: "LayoutGrid",
+    deliverables: ["Responsive Next.js application", "Tailwind CSS styling", "State management & test suites"]
+  },
+  {
+    id: "perf-optimization",
+    title: "System Audits & Performance",
+    description: "Database query profiling, HikariCP pool sizing, Redis caching strategies, and API latency tuning.",
+    iconName: "Database",
+    deliverables: ["Database query plan analysis", "Cache invalidation design", "Benchmarking & load testing"]
   }
 ];
 
@@ -167,73 +156,98 @@ export const sampleExperience: ExperienceItem[] = [
     role: "Software Engineering Intern",
     organization: "TecheQube",
     period: "Jun 2024 – Aug 2024",
+    location: "Pune, India",
     points: [
-      "Engineered backend microservices and REST endpoints using Java and Spring Boot for high-traffic client platforms.",
-      "Contributed to database optimization and schema indexing on PostgreSQL, improving query response by 32%.",
-      "Collaborated closely with cross-functional product and frontend teams on full-stack feature releases."
-    ]
+      "Engineered backend REST microservices using Java 21 and Spring Boot for high-traffic client platforms.",
+      "Optimized relational PostgreSQL schemas and composite indices, reducing critical query response times by 32%.",
+      "Architected clean global exception handling using RFC 7807 ProblemDetails contracts across 14 API endpoints.",
+      "Collaborated in agile sprint cycles with product managers, writing JUnit 5 integration tests achieving 88% branch coverage."
+    ],
+    technologies: ["Java", "Spring Boot", "PostgreSQL", "REST APIs", "Docker", "Git"]
+  }
+];
+
+export const sampleContributions: ContributionItem[] = [
+  {
+    id: "c-1",
+    title: "Open Source Developer Tools & Spring Starters",
+    organization: "GitHub Community",
+    type: "Open Source",
+    period: "2024 – Present",
+    description: "Maintained and contributed to developer automation scripts, custom Spring Boot starter utilities, and Dockerized microservice templates.",
+    metrics: "200+ GitHub Stars across personal repositories"
   },
+  {
+    id: "c-2",
+    title: "Smart Document Intelligence Pipeline",
+    organization: "Engineering Hackathon Finalist",
+    type: "Hackathon",
+    period: "2024",
+    description: "Built an end-to-end RAG system for extracting structured data from unstructured municipal records, taking top honors among 40+ engineering teams.",
+    metrics: "Finalist & Best Architecture Award"
+  },
+  {
+    id: "c-3",
+    title: "Technical Writing on Backend Systems",
+    organization: "Dev.to & Personal Engineering Blog",
+    type: "Technical Article",
+    period: "2024 – Present",
+    description: "Published in-depth writeups on Spring Boot connection pool tuning, RAG retrieval grounding, and database isolation levels.",
+    metrics: "12,000+ developer reads"
+  }
+];
+
+export const sampleEducation: EducationItem[] = [
   {
     id: "bachelor",
-    role: "Bachelor of Engineering",
-    organization: "Computer Science & Engineering",
+    degree: "Bachelor of Engineering in Computer Science & Engineering",
+    institution: "Savitribai Phule Pune University",
     period: "2021 – 2025",
-    points: [
-      "Rigorous coursework in Data Structures, Algorithms, Database Management Systems (DBMS), Operating Systems, Computer Networks, and AI/ML.",
-      "Graduated with top academic standing and active participation in engineering hackathons."
-    ]
-  },
-  {
-    id: "continuous",
-    role: "Continuous Learning & Research",
-    organization: "Independent Engineering",
-    period: "2025 – Present",
-    points: [
-      "Deep exploration of Generative AI systems, RAG architecture, vector search spaces, and reactive microservices.",
-      "Building and shipping open-source developer tooling and contributing to technical developer publications."
-    ]
+    details: "Rigorous coursework in Data Structures & Algorithms, Database Management Systems (DBMS), Operating Systems, Computer Networks, Distributed Systems, and Machine Learning.",
+    grade: "First Class with Distinction"
   }
 ];
 
 export const sampleSkills: SkillCategory[] = [
   {
-    category: "Backend",
+    category: "Backend & Systems",
     skills: [
-      { name: "Java", highlight: true, proficiency: "Core Language" },
-      { name: "Spring Boot", highlight: true, proficiency: "Microservices & REST" },
-      { name: "REST APIs", highlight: true, proficiency: "Architecture & Design" },
-      { name: "PostgreSQL", highlight: false, proficiency: "Relational DB" },
+      { name: "Java 21", highlight: true, proficiency: "Core Language · Concurrency" },
+      { name: "Spring Boot 3", highlight: true, proficiency: "Microservices · REST APIs" },
+      { name: "PostgreSQL", highlight: true, proficiency: "Schema Design · Indexing" },
+      { name: "Redis", highlight: false, proficiency: "Distributed Caching · Lua" },
       { name: "MySQL", highlight: false, proficiency: "Relational DB" },
       { name: "Docker", highlight: false, proficiency: "Containerization" }
     ]
   },
   {
-    category: "Frontend",
+    category: "Frontend & Architecture",
     skills: [
-      { name: "React", highlight: true, proficiency: "UI Architecture" },
-      { name: "Next.js", highlight: true, proficiency: "Full-Stack Web" },
+      { name: "React", highlight: true, proficiency: "UI State Architecture" },
       { name: "TypeScript", highlight: true, proficiency: "Strict Type Safety" },
-      { name: "Tailwind CSS", highlight: false, proficiency: "Modern Styling" }
+      { name: "Next.js", highlight: true, proficiency: "App Router · SSR" },
+      { name: "Tailwind CSS", highlight: false, proficiency: "Design Systems" },
+      { name: "WebSockets", highlight: false, proficiency: "Real-time Telemetry" }
     ]
   },
   {
-    category: "AI / ML",
+    category: "Applied AI & Retrieval",
     skills: [
-      { name: "Python", highlight: true, proficiency: "Scripting & AI" },
+      { name: "Python", highlight: true, proficiency: "Data Pipelines" },
+      { name: "RAG Architecture", highlight: true, proficiency: "Hybrid BM25 + Dense" },
       { name: "LangChain", highlight: false, proficiency: "Agent Orchestration" },
-      { name: "RAG", highlight: true, proficiency: "Hybrid Retrieval" },
-      { name: "OpenAI / Gemini", highlight: true, proficiency: "Model Integration" },
-      { name: "Vector DB", highlight: false, proficiency: "Pinecone / Chroma" }
+      { name: "Vector Databases", highlight: false, proficiency: "Chroma · Pinecone" },
+      { name: "OpenAI / Gemini", highlight: true, proficiency: "Function Calling · Grounding" }
     ]
   },
   {
-    category: "Tools & Others",
+    category: "DevOps & Engineering Practices",
     skills: [
-      { name: "Git", highlight: false, proficiency: "Version Control" },
-      { name: "Linux", highlight: false, proficiency: "Server Environments" },
-      { name: "Postman", highlight: false, proficiency: "API Testing" },
-      { name: "VS Code", highlight: false, proficiency: "IDE" },
-      { name: "Figma", highlight: false, proficiency: "UI Specification" }
+      { name: "Git / GitHub", highlight: false, proficiency: "Trunk-based Dev" },
+      { name: "Linux", highlight: false, proficiency: "Server Admin · Bash" },
+      { name: "RESTful API Design", highlight: true, proficiency: "RFC 7807 Contracts" },
+      { name: "JUnit 5 & Mockito", highlight: false, proficiency: "Integration Testing" },
+      { name: "Postman", highlight: false, proficiency: "Contract Testing" }
     ]
   }
 ];
@@ -241,52 +255,51 @@ export const sampleSkills: SkillCategory[] = [
 export const sampleBuildNotes: BuildNote[] = [
   {
     id: "spring-boot-api",
-    title: "Designing a Spring Boot API",
-    subtitle: "Key decisions for a maintainable, high-concurrency API structure.",
+    title: "Designing a Spring Boot API: Beyond Basic CRUD",
+    subtitle: "Architectural decisions made in the first 48 hours dictate maintainability for years.",
     readTime: "5 min",
     date: "Aug 2024",
-    summary: "Reflections on structuring controller-service-repository patterns, global exception handlers, and avoiding leaky DTO abstractions.",
+    summary: "Reflections on decoupling JPA entities from DTOs, implementing RFC 7807 ProblemDetails exception handling, and tuning HikariCP connection pools for high concurrency.",
     tags: ["Java", "Spring Boot", "API Design", "Architecture"],
     content: [
-      "When building production REST APIs in Spring Boot, the temptation is often to jump straight into CRUD controllers. However, the architectural decisions made in the first 48 hours dictate maintainability for years.",
-      "1. Decouple Entities from DTOs: Never expose JPA entities directly to the API boundary. DTOs act as strict contracts that shield your database schema from external consumers and prevent unintended over-fetching.",
-      "2. Centralized Exception Handling with @ControllerAdvice: Rather than try-catch blocks cluttering business services, use a standardized ProblemDetail structure with consistent RFC 7807 error codes.",
-      "3. Connection Pool Sizing: Using HikariCP effectively requires matching pool sizes with available database worker threads, avoiding thread starvation under peak loads."
+      "When building production REST APIs in Spring Boot, the temptation is often to jump straight into CRUD controllers. However, architectural decisions made in the first 48 hours dictate system maintainability for years.",
+      "1. Decouple JPA Entities from DTOs: Exposing database entities directly to API boundaries is the fastest way to leak internal schema details, invite accidental mass-assignment vulnerabilities, and trigger unexpected N+1 queries. DTOs serve as immutable contracts that protect both client and database.",
+      "2. Standardized RFC 7807 Error Handling: Rather than scattering try-catch blocks across business services, employ a centralized @ControllerAdvice returning standard ProblemDetail payloads. Consistent machine-readable error codes eliminate client ambiguity.",
+      "3. Connection Pool Sizing with HikariCP: A common misconception is that larger connection pools equal higher throughput. In reality, matching pool sizes to CPU core worker threads prevents expensive disk thrashing and thread starvation under peak loads."
     ]
   },
   {
     id: "rag-application",
-    title: "Building a RAG Application",
-    subtitle: "From raw technical documents to useful, verifiable answers.",
+    title: "Building a RAG Pipeline That Doesn't Hallucinate",
+    subtitle: "From raw technical documents to verifiable, grounded answers.",
     readTime: "6 min",
     date: "Sep 2024",
-    summary: "How to eliminate hallucinations in document question answering through semantic chunking, metadata filtering, and re-ranking.",
-    tags: ["Python", "LangChain", "Vector Search", "LLMs"],
+    summary: "Why naive vector search breaks on enterprise documentation, and how hybrid BM25 lexical search, semantic chunking, and source citation grounding solve it.",
+    tags: ["Python", "RAG", "Vector Search", "LLMs"],
     content: [
-      "Naive RAG often falls flat when documents contain complex tables, technical specifications, or cross-referenced clauses.",
-      "1. Chunking Strategy Matters Most: Fixed-character sliding windows chop important sentences in half. We shifted to semantic header-aware chunking, ensuring each passage retains its parent context.",
-      "2. Hybrid Search (Dense + BM25): Dense vector embeddings capture semantic meaning, but miss exact part numbers or acronyms. Combining dense retrieval with lexical BM25 scores yields optimal precision.",
-      "3. Grounding & Inline Citations: Prompting the model to cite exact chunk IDs before articulating conclusions drastically reduces hallucination rates."
+      "Naive RAG often looks miraculous in a 10-line demo, but falls apart when faced with enterprise documentation containing complex tables, error codes, and cross-referenced clauses.",
+      "1. Chunking Strategy Matters More Than the Embedding Model: Fixed-character sliding windows inevitably chop crucial sentences in half. We shifted to semantic, header-aware chunking, ensuring each chunk retains its parent chapter context.",
+      "2. Hybrid Retrieval (BM25 + Dense Vectors): Dense embeddings capture semantic similarity, but fail on exact part numbers or function signatures. Combining dense retrieval with BM25 lexical scoring yields dramatic recall improvements.",
+      "3. Grounding & Citation Mandates: Prompting the model to cite exact chunk IDs before articulating conclusions provides a verifiable audit trail and eliminates over 60% of hallucinations."
     ]
   },
   {
     id: "finpilot-lessons",
     title: "Lessons from Building FinPilot",
-    subtitle: "Product decisions and technical trade-offs in an AI-native financial workspace.",
+    subtitle: "Balancing reactive frontend interfaces with transactional backend security.",
     readTime: "4 min",
     date: "Oct 2024",
-    summary: "Balancing reactive frontend interfaces with transactional backend security and machine learning inference latency.",
-    tags: ["Product Engineering", "FinTech", "Next.js", "UX"],
+    summary: "How we balanced machine learning inference latency with banking-grade security and created a calming financial interface.",
+    tags: ["Product Engineering", "FinTech", "Next.js", "Architecture"],
     content: [
       "FinPilot began as a simple bill reminder app and evolved into an intelligent cash-flow workspace.",
-      "1. Latency is the Enemy of Trust: Users will not wait 4 seconds for an LLM to tell them when their electricity bill is due. We offloaded predictive classification to asynchronous worker queues, updating the UI via optimistic state.",
+      "1. Latency is the Enemy of Trust: Users will not wait 3 seconds for an LLM to tell them when their electricity bill is due. We offloaded predictive classification to asynchronous worker queues, updating the UI via optimistic state.",
       "2. Security as a Core Feature: Bank statement data requires end-to-end client tokenization and ephemeral storage pipelines. Zero unencrypted financial data touches persistent logs.",
       "3. The Vibe of Financial Tools: Most financial software feels either clinical or gamified. By adopting warm, editorial earth tones and clean typographic tables, we created a calming experience for users managing money."
     ]
   }
 ];
 
-// The comprehensive blueprint that answers the user's prompt in exhaustive detail
 export const masterVibePromptBlueprint: VibePromptBlueprint = {
   overallTheme: "Considered Software Craftsmanship & Organic Modernism (Warm Editorial + High-Tech Precision)",
   colorPalette: [
@@ -298,20 +311,18 @@ export const masterVibePromptBlueprint: VibePromptBlueprint = {
   ],
   layoutStructure: [
     "Full-width desktop canvas (1440px baseline) with an architectural two-axis structure.",
-    "Persistent Left Aesthetic Rail (width ~72px to 96px) featuring live audio waveform synthesizer, volume control, track info ('Chasing Better Days'), and scroll-spy section jump indicators (01 to 08).",
-    "Fluid Top Navigation conforming strictly to the Top Bar Contract (Wordmark + 5 text links + Opportunity Status + Primary CTA).",
-    "Hero split viewport with left typographic hierarchy, interactive Spring Boot code card, floating 'Currently exploring' cards, and natural light mountain photography.",
-    "Bento grid for Selected Work (3 featured product cards with interactive live previews, category filter pills, and technology tags).",
-    "Two-column split for About section (editorial manifesto on left, framed portrait polaroid on right).",
-    "Side-by-side Experience Timeline and Skills Matrix.",
-    "Horizontal 3-card Build Notes publishing rack with reading modals.",
-    "Full-bleed twilight horizon footer with dual action cards (Career vs Freelance) and floating glass dock."
+    "Persistent Left Aesthetic Rail featuring a scroll-driven waveform visualizer that tracks scroll progress and direction, with independent optional ambient audio playback.",
+    "Compact glassmorphic Top Navigation with brand lockup, live Pune IST clock, and concise single-line links.",
+    "Hero split with personal engineering manifesto, Pune location tag, and authentic production architecture overview.",
+    "Selected Work case studies (FinPilot, RAG Documentation Engine, Orvexa, StreamGate) detailing Problem, Architecture, and What I Learned.",
+    "Experience & Open Source Contributions presenting verifiable internship impact, hackathon honors, and repository metrics.",
+    "Deep technical Build Notes publication rack with full article reading modals.",
+    "Dignified Contact & Horizon footer with direct email triggers and subtle bottom glass dock."
   ],
   navigationStyle: [
-    "Multi-tier synchronized navigation: top header, persistent left scroll-spy rail, floating bottom quick dock, and keyboard shortcut ⌘K Command Palette.",
+    "Multi-tier synchronized navigation: compact top header, persistent left scroll-progress rail, floating bottom quick dock, and keyboard shortcut ⌘K Command Palette.",
     "Clean unboxed single-line typography for primary navigation links with hover micro-underlines.",
-    "Floating bottom glass dock with direct links to GitHub, LinkedIn, Résumé preview, Email, and ⌘K Command Palette.",
-    "Smooth scroll anchor behavior coupled with URL hash synchronization."
+    "Floating bottom glass dock with direct links to GitHub, LinkedIn, Résumé preview, Email, and ⌘K Command Palette."
   ],
   typographyPreferences: [
     {
@@ -329,7 +340,7 @@ export const masterVibePromptBlueprint: VibePromptBlueprint = {
     {
       role: "Code, Numbers & Telemetry",
       fontFamily: "'JetBrains Mono'",
-      usage: "Spring Boot code blocks, terminal tabs, metrics (tabular-nums), and section numbers.",
+      usage: "Code blocks, metrics (tabular-nums), and section numbers.",
       weights: "400 Regular, 500 Medium"
     }
   ],
@@ -339,98 +350,85 @@ export const masterVibePromptBlueprint: VibePromptBlueprint = {
       title: "Hero & Engineering Manifest",
       purpose: "Deliver immediate clarity on technical identity, aesthetic taste, and engineering breadth.",
       keyElements: [
-        "Tagline: BACKEND SYSTEMS / FULL-STACK PRODUCTS / APPLIED AI",
         "Headline: 'I build software that feels as considered as it works.'",
-        "Action buttons: 'Explore my work →' and 'Discuss a project'",
-        "Live interactive Spring Boot code snippet with copy affordance",
-        "'Currently exploring' sticky note with interactive status items",
-        "Golden-hour mountain hiker photograph with 'SAME CURIOSITY DIFFERENT PROBLEMS' badge",
+        "Bio: Java backend engineering, dependable microservices, and applied AI systems.",
+        "Production stack overview (Spring Boot 3, Next.js, PostgreSQL, RAG)",
         "Location tag: Pune, India"
       ]
     },
     {
       sectionNumber: "02",
-      title: "Selected Work (Interactive Bento Showcase)",
+      title: "Selected Work (Case Studies)",
       purpose: "Provide tactile proof of engineering excellence across Fintech, Applied AI, and Developer Tools.",
       keyElements: [
-        "Category filter tabs: Featured, All Projects, Web Apps, AI & ML, Backend, Tools",
-        "FinPilot card: Financial workspace with interactive dashboard mockup and metrics",
-        "RAG Chatbot card: Interactive Q&A simulation with source citations",
-        "Orvexa card: Developer tool with interactive Editor, Terminal, and AI tabs",
-        "Clean unboxed tech stack metadata (Next.js · Spring Boot · PostgreSQL · AI/ML)"
+        "FinPilot, RAG Documentation Engine, Orvexa, StreamGate",
+        "Problem, Solution, Architecture, and What I Learned breakdowns",
+        "Realistic high-resolution UI previews and live metric badges"
       ]
     },
     {
       sectionNumber: "03",
-      title: "About & Engineering Philosophy",
-      purpose: "Articulate the philosophy of combining rigorous backend infrastructure with thoughtful design.",
+      title: "Experience & Contributions",
+      purpose: "Provide verified technical credentials, open-source work, and community impact.",
       keyElements: [
-        "Headline: 'Software, products and ideas that make a real difference.'",
-        "Prose explaining full-stack breadth from API design to user empathy",
-        "Mountain sunrise profile polaroid card with circular badge",
-        "Action bar: Download Résumé, GitHub, LinkedIn, Email"
+        "Software Engineering Intern at TecheQube (Java/Spring Boot)",
+        "Open source contributions and hackathon honors",
+        "Bachelor of Engineering degree credentials"
       ]
     },
     {
-      sectionNumber: "04 & 05",
-      title: "Experience, Education & Skills Matrix",
-      purpose: "Provide verified technical credentials and categorize full-stack competencies.",
+      sectionNumber: "04",
+      title: "Skills & Technical Toolkit",
+      purpose: "Categorize full-stack competencies with proficiency details and clean unboxed text.",
       keyElements: [
-        "Timeline of Software Engineering Intern role at TecheQube, B.E. in Computer Science, and Continuous Learning",
-        "Categorized skill matrices for Backend (Java, Spring Boot), Frontend (React, Next.js), AI/ML (Python, RAG), and Tools (Docker, Git)"
+        "Backend & Systems, Frontend & Architecture, Applied AI & Retrieval, DevOps & Testing"
+      ]
+    },
+    {
+      sectionNumber: "05",
+      title: "About & Engineering Ethos",
+      purpose: "Articulate the philosophy of combining rigorous backend infrastructure with thoughtful design.",
+      keyElements: [
+        "Narrative detailing backend robustness up through user interface empathy",
+        "Portrait photo card and résumé download trigger"
       ]
     },
     {
       sectionNumber: "06",
-      title: "Services & Capabilities ('What I Can Help You Build')",
-      purpose: "Convert visitors into clients or collaborators with concrete service offerings.",
+      title: "Build Notes & Technical Essays",
+      purpose: "Demonstrate architectural depth and thought leadership through technical writing.",
       keyElements: [
-        "Business Websites, Web Applications, Backend APIs, AI Prototypes",
-        "Inquiry card: 'Have a different idea? Let's build something useful together.'",
-        "Interactive Project Inquiry form modal"
+        "Articles on Spring Boot API design, RAG implementations, and FinPilot product trade-offs"
       ]
     },
     {
       sectionNumber: "07",
-      title: "Build Notes & Technical Essays",
-      purpose: "Demonstrate architectural depth and thought leadership through technical writing.",
-      keyElements: [
-        "Articles on Spring Boot API design, RAG implementations, and FinPilot product trade-offs",
-        "Interactive modal reader with full articles, reading times, and takeaways"
-      ]
-    },
-    {
-      sectionNumber: "08",
       title: "Contact & Horizon Footer",
       purpose: "Atmospheric, warm closure offering direct avenues for career roles and freelance projects.",
       keyElements: [
         "Twilight mountain panorama backdrop",
-        "Two prominent cards: 'Career opportunities' and 'Freelance projects' with instant email triggers",
-        "Bottom dock with GitHub, LinkedIn, Résumé modal, Email, and ⌘K Command Palette"
+        "Career and freelance inquiry cards with instant email copy",
+        "Bottom glass dock with ⌘K Command Palette"
       ]
     }
   ],
   specificVisualElements: [
-    "Generative Web Audio API ambient lofi synthesizer with live equalizer waveform bars ('Chasing Better Days - Lofi Study').",
-    "Interactive Spring Boot 3 code card with syntax styling and live execution simulation.",
-    "Interactive Orvexa workspace with switchable tabs: Editor, Terminal, and AI Assistant.",
-    "Interactive RAG question simulation displaying real-time retrieval chunks and source confidence.",
-    "Framed analog/polaroid photographic cards with subtle warm borders and natural mountain scenery.",
-    "Rotated editorial stamps: 'SAME CURIOSITY DIFFERENT PROBLEMS' and 'BUILDING A MORE MEANINGFUL INTERNET'.",
-    "Floating glassmorphic bottom dock with ⌘K Command Menu trigger.",
-    "Atmospheric twilight alpine landscape scrim in the contact section."
+    "Scroll-driven vertical waveform visualizer reacting to scroll progress and velocity (Uday Kiran inspired).",
+    "Independent optional Web Audio ambient lofi sound engine.",
+    "Cursor-following radial spotlight glow on cards.",
+    "Keyboard-first ⌘K Command Palette (Ashutoshx7 inspired).",
+    "Analog framed portrait with location credentials.",
+    "Strict Zero-Pill Discipline: Unboxed metadata text separated by '·' or '/'."
   ],
   targetAudience: [
     "Engineering Hiring Managers & Tech Leads looking for senior-minded full-stack and backend engineers.",
     "Tech Founders seeking proactive engineers who understand both system architecture and user experience.",
-    "Design Engineers & Product Designers who value high-craft typographic polish and tactile interaction.",
-    "Enterprise Clients & Early-Stage Startups needing robust Spring Boot backends and modern AI/RAG prototypes."
+    "Design Engineers & Product Designers who value high-craft typographic polish and tactile interaction."
   ],
   vibeCodingGuidelines: [
     "Enforce the 60-30-10 color rule: 60% warm alabaster canvas, 30% soft oat paper surfaces, 10% forest pine accents.",
-    "Practice strict Zero-Pill Discipline: static metadata must be clean unboxed text separated by '·' or '/', reserving pill buttons strictly for interactive filter tabs.",
-    "Maintain the Top Bar Contract: Brand mark on left, 4-5 text links in center, single primary action on right.",
-    "Every interactive element must have a functional handler (no dead clicks, no placeholder stubs).",
-    "Use Instrument Serif italic for evocative emphasis paired with Plus Jakarta Sans for structural clarity."
+    "Zero-Pill Discipline: static metadata must be clean unboxed text separated by '·' or '/'.",
+    "Maintain the Top Bar Contract: Brand mark on left, single-line links in center, primary action on right.",
+    "Every interactive element must have a functional handler (no dead clicks, no placeholder stubs)."
   ]
 };

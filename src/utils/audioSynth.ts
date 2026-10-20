@@ -23,6 +23,7 @@ class LofiAudioEngine {
   private volume = 0.3;
   private currentTrackIndex = 0;
   private onTrackChangeCallbacks: ((track: LofiTrack) => void)[] = [];
+  private onPlayStateChangeCallbacks: ((isPlaying: boolean) => void)[] = [];
 
   // Track chord progressions
   private chordSets: Record<string, number[][]> = {
@@ -87,10 +88,34 @@ class LofiAudioEngine {
     this.onTrackChangeCallbacks.forEach(cb => cb(track));
   }
 
+  public addListener(callback: (isPlaying: boolean) => void) {
+    this.onPlayStateChangeCallbacks.push(callback);
+    return () => this.removeListener(callback);
+  }
+
+  public removeListener(callback: (isPlaying: boolean) => void) {
+    this.onPlayStateChangeCallbacks = this.onPlayStateChangeCallbacks.filter(c => c !== callback);
+  }
+
+  private notifyPlayStateChange(isPlaying: boolean) {
+    this.onPlayStateChangeCallbacks.forEach(cb => {
+      try {
+        cb(isPlaying);
+      } catch {
+        // ignore
+      }
+    });
+  }
+
+  public getIsPlaying(): boolean {
+    return this.isPlaying;
+  }
+
   public play() {
     this.initContext();
     if (!this.ctx || !this.masterGain) return;
     this.isPlaying = true;
+    this.notifyPlayStateChange(true);
 
     this.playNextChord();
     const interval = (60 / LOFI_TRACKS[this.currentTrackIndex].bpm) * 4 * 1000;
@@ -107,6 +132,7 @@ class LofiAudioEngine {
 
   public pause() {
     this.isPlaying = false;
+    this.notifyPlayStateChange(false);
     if (this.intervalId) {
       clearInterval(this.intervalId);
       this.intervalId = null;

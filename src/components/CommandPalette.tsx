@@ -92,12 +92,22 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
       }
     },
     {
-      id: 'sec-craft-lab',
-      title: 'Jump to Craft Lab (Samworks-inspired Mini-Apps)',
+      id: 'sec-about',
+      title: 'Jump to About & Engineering Ethos',
       category: 'Navigation',
-      icon: <Sparkles className="w-4 h-4 text-[#D97746]" />,
+      icon: <Terminal className="w-4 h-4 text-[#1E382B]" />,
       action: () => {
-        onNavigate('craft-lab');
+        onNavigate('about');
+        onClose();
+      }
+    },
+    {
+      id: 'sec-experience',
+      title: 'Jump to Experience & Contributions',
+      category: 'Navigation',
+      icon: <Terminal className="w-4 h-4 text-[#1E382B]" />,
+      action: () => {
+        onNavigate('experience');
         onClose();
       }
     },

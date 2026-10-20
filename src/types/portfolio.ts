@@ -8,17 +8,31 @@ export interface Project {
   tags: string[];
   githubUrl: string;
   demoUrl?: string;
+  problem: string;
+  solution: string;
+  whatILearned: string;
   stats?: { label: string; value: string }[];
-  type: 'finpilot' | 'rag' | 'orvexa' | 'standard';
   highlights: string[];
+  imageSrc?: string;
 }
 
 export interface ServiceItem {
   id: string;
-  iconName: string;
   title: string;
   description: string;
+  iconName: string;
   deliverables: string[];
+}
+
+export interface ContributionItem {
+  id: string;
+  title: string;
+  organization: string;
+  type: 'Open Source' | 'Hackathon' | 'Technical Article';
+  period: string;
+  description: string;
+  link?: string;
+  metrics?: string;
 }
 
 export interface ExperienceItem {
@@ -26,7 +40,9 @@ export interface ExperienceItem {
   role: string;
   organization: string;
   period: string;
+  location: string;
   points: string[];
+  technologies: string[];
 }
 
 export interface EducationItem {
@@ -35,6 +51,7 @@ export interface EducationItem {
   institution: string;
   period: string;
   details: string;
+  grade?: string;
 }
 
 export interface BuildNote {

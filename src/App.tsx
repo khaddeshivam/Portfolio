@@ -3,7 +3,7 @@ import { LeftSidebarRail } from './components/LeftSidebarRail';
 import { TopNav } from './components/TopNav';
 import { HeroSection } from './components/HeroSection';
 import { SelectedWorkSection } from './components/SelectedWorkSection';
-import { InteractiveCraftLab } from './components/InteractiveCraftLab';
+import { RightProgressRail } from './components/RightProgressRail';
 import { AboutSection } from './components/AboutSection';
 import { ExperienceSkillsSection } from './components/ExperienceSkillsSection';
 import { ServicesSection } from './components/ServicesSection';
@@ -15,6 +15,7 @@ import { BuildNoteModal } from './components/BuildNoteModal';
 import { ResumeModal } from './components/ResumeModal';
 import { ContactModal } from './components/ContactModal';
 import { CommandPalette } from './components/CommandPalette';
+import { BottomShortcutDock } from './components/BottomShortcutDock';
 import { Project, BuildNote } from './types/portfolio';
 import { soundEffects } from './utils/uiSound';
 import { lofiEngine } from './utils/audioSynth';
@@ -38,15 +39,24 @@ export default function App() {
   useEffect(() => {
     if (currentView !== 'portfolio') return;
 
-    const sections = ['hero', 'work', 'craft-lab', 'about', 'experience', 'services', 'notes', 'contact'];
+    const sections = ['hero', 'work', 'about', 'experience', 'services', 'notes', 'contact'];
     const handleScroll = () => {
-      const scrollY = window.scrollY + 200;
+      const scrollY = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? (scrollY / docHeight) * 100 : 0;
+
+      const mobileBar = document.getElementById('mobile-scroll-progress');
+      if (mobileBar) {
+        mobileBar.style.width = `${progress.toFixed(1)}%`;
+      }
+
+      const activeScrollY = scrollY + 200;
       for (const sectionId of sections) {
         const el = document.getElementById(sectionId);
         if (el) {
           const top = el.offsetTop;
           const height = el.offsetHeight;
-          if (scrollY >= top && scrollY < top + height) {
+          if (activeScrollY >= top && activeScrollY < top + height) {
             setActiveSection(sectionId);
             break;
           }
@@ -55,6 +65,7 @@ export default function App() {
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, [currentView]);
 
@@ -122,6 +133,9 @@ export default function App() {
             onToggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
           />
 
+          {/* Subtle Right Progress Rail */}
+          <RightProgressRail activeSection={activeSection} />
+
           {/* Main Portfolio Content Stream */}
           <main
             className={`flex-1 transition-all duration-300 w-full overflow-x-hidden ${
@@ -139,8 +153,6 @@ export default function App() {
                 setSelectedProject(project);
               }}
             />
-
-            <InteractiveCraftLab />
 
             <AboutSection
               onOpenResume={() => {
@@ -178,19 +190,14 @@ export default function App() {
         </div>
       )}
 
-      {/* Mobile Floating Sound Pill (for screens where left rail is hidden) */}
+      {/* Mobile Subtle Top Scroll Progress Indicator */}
       {currentView === 'portfolio' && (
-        <div className="lg:hidden fixed bottom-4 left-4 z-40 flex items-center gap-2 p-1.5 bg-[#1E2522]/95 backdrop-blur-md text-white rounded-full border border-white/20 shadow-xl">
-          <button
-            onClick={toggleMobileAudio}
-            className="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center text-white active:scale-95"
-            aria-label="Toggle lofi audio"
-          >
-            {mobileIsPlaying ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5 ml-0.5" />}
-          </button>
-          <span className="text-[10px] font-mono pr-2">
-            {mobileIsPlaying ? 'Playing Lofi' : 'Lofi Study'}
-          </span>
+        <div className="lg:hidden fixed top-0 left-0 right-0 h-[2.5px] bg-transparent z-50 pointer-events-none">
+          <div
+            id="mobile-scroll-progress"
+            className="h-full bg-[#1E382B] transition-all duration-150 origin-left"
+            style={{ width: '0%' }}
+          />
         </div>
       )}
 
@@ -219,6 +226,22 @@ export default function App() {
         initialType={contactInitialType}
         onClose={() => setIsContactOpen(false)}
       />
+
+      {/* Subtle Floating Bottom Shortcut Dock */}
+      {currentView === 'portfolio' && (
+        <BottomShortcutDock
+          onOpenCommand={() => {
+            soundEffects.playPop();
+            setIsCommandOpen(true);
+          }}
+          onOpenResume={() => {
+            soundEffects.playClick();
+            setIsResumeOpen(true);
+          }}
+          onOpenContact={() => handleOpenContact('collaboration')}
+          onScrollToTop={() => scrollToSection('hero')}
+        />
+      )}
 
       <CommandPalette
         isOpen={isCommandOpen}

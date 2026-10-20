@@ -42,7 +42,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenResume, onOpen
             </h2>
 
             <p className="text-base sm:text-lg text-[#4E5852] leading-relaxed font-normal">
-              {portfolioProfile.aboutLong}
+              {portfolioProfile.aboutPersonal}
             </p>
 
             <p className="text-sm text-[#5C6660] leading-relaxed">
