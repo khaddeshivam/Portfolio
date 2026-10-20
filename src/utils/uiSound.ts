@@ -128,6 +128,18 @@ class SoundEffectsEngine {
       // Audio fallback
     }
   }
+
+  // Tactile haptic vibration for mobile devices
+  public vibrate(pattern: number | number[] = 12) {
+    try {
+      if (typeof window !== 'undefined' && 'navigator' in window && typeof navigator.vibrate === 'function') {
+        navigator.vibrate(pattern);
+      }
+    } catch {
+      // Fallback if vibration API is unavailable or restricted
+    }
+  }
 }
 
 export const soundEffects = new SoundEffectsEngine();
+
